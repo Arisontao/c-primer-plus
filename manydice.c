@@ -5,13 +5,13 @@
 
 int main(void)
 {
-	int dices; //骰子数
-	int sides; //面数
+	int dices; //number of dice
+	int sides; //number of dice's sides
 	int status;
-	char ch; //错误输入的输出
-	int sets; //摇色子的次数
-	int roll; //摇出的数字总和
-	int i; //打印数字
+	char ch;
+	int sets; //number of set rolls
+	int roll; //sum of all random numbers
+	int i;
 
 	srand((unsigned int) time(0));
 	printf("Enter the number of sets(enter 0 to stop): ");
@@ -41,11 +41,11 @@ int main(void)
 			}
 		}
 		printf("Here are %d sets of %d %d-sided throws.\n",sets,dices,sides);
-		for(i = 0;i < sets;i++) //为什么这里打印的时候会出现这样的错误呢？我是真的不知道啊
+		for(i = 0;i < sets;i++)
 		{
 			roll = roll_n_dice(sides,dices);
-			printf("%d ",roll);// 这里改变了roll的值，以前是随机值，这里通过roll_n_dice把它变成了总和
-			if(i % 14 == 0 && i != 0)
+			printf("%d ",roll); //Changing the value of roll from random numbers to the sum of random numbers
+			if(i % 14 == 0 && i != 0) //Warning here,you should care about the case i isn't equal to 0,it will print a line break.
 				putchar('\n');
 		}
 		printf("\nHow many sets? Enter q to stop: ");
