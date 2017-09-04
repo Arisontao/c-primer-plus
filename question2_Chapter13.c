@@ -13,12 +13,12 @@ int main(int argc,char *argv[])
 		fprintf(stderr,"Usage: %s filename\n",argv[0]);
 		exit(EXIT_FAILURE);
 	}
-	if((fa = fopen(argv[1],"r")) == NULL)
+	if((fa = fopen(argv[1],"rb")) == NULL)
 	{
 		fprintf(stderr,"Can't open %s.\n",argv[1]);
 		exit(EXIT_FAILURE);
 	}
-	if((fs = fopen(argv[2],"w")) == NULL)
+	if((fs = fopen(argv[2],"wb")) == NULL)
 	{
 		fprintf(stderr,"Can't open %s.\n",argv[2]);
 		exit(EXIT_FAILURE);
