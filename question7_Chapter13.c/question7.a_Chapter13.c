@@ -7,7 +7,7 @@ int main(void)
 	FILE *fa,*fp;
 	int ch;
 	int cha;
-
+	//In this program,we need to note the newline character in the end of the file,which affects the output of the program
 	if((fa = fopen("b.txt","r")) == NULL)
 	{
 		fprintf(stderr,"Can't open b.txt\n");
@@ -21,24 +21,26 @@ int main(void)
 	while(1)
 	{
 		ch = getc(fa);
+		if(feof(fa))
+        {
+            cha = getc(fp);
+			putc(cha,stdout);
+			goto a; //Here I use goto statement to skip the case when fa equals EOF
+        }
 		putc(ch,stdout);
-		while(ch == '\n')
+		a: while(ch == '\n')
 		{
 			cha = getc(fp);
 			if(feof(fp))
 			{
 				ch = getc(fa);
                 putc(ch,stdout);
+                continue;
 			}
 			putc(cha,stdout);
 			if(cha == '\n')
 				break;
 		}
-		if(feof(fa))
-        {
-            while((cha = getc(fp)) != EOF);
-				putc(cha,stdout);
-        }
 		if(feof(fa) && feof(fp))
 			break;
 	}
