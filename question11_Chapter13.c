@@ -20,6 +20,11 @@ int main(int argc,char * argv[])
 	while(fgets(words,MAX,fp) != NULL)
 		if(strstr(words,argv[1]) != NULL)
 			printf("%s",words);
+	if(fclose(fp))
+	{
+		fprintf(stderr,"Error in closing file.\n");
+		exit(EXIT_FAILURE);
+	}
 
 	return 0;
 }
