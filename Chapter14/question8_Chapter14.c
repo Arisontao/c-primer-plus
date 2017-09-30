@@ -31,7 +31,7 @@ int main(void)
 	for(i = 0;i < MAXSEAT;i++)
 	{
 		pointer[i] = &seat[i]; //Using the pointer array to modify the contents of structure not the initialization of structure
-		pointer[i]->seat_number = i + 1; 
+		pointer[i]->seat_number = i + 1;
 		pointer[i]->seat_reservation = false;
 	}
 	while((choice = get_choice()) != 'f')
@@ -60,17 +60,17 @@ void delete_seat(struct airplane * ptr[])
 	int choice2;
 	int n;
 	int flag = 0; //A variable to judge if all the seats are empty
-	struct airplane * pointer[MAXSEAT];
+	struct airplane pointer2[MAXSEAT];
 	//Traversing the whole array with flag variable if you want to exit this function when all the seats are empty
 	for(n = 0;n < MAXSEAT;n++)
-        pointer[n] = ptr[n];
+        pointer2[n] = *ptr[n];
 	while((choice2 = get_choice2()) != 'q' && choice2 != 'b') //Using return statement to break the loop is better than using goto statement
 	{
 		switch(choice2)
 		{
 			case 'a':	flag = 0; //Remember to set flag variable to 0
 						for(n = 0;n < MAXSEAT;n++)
-							if(pointer[n]->seat_reservation == false)
+							if(pointer2[n].seat_reservation == false)
 								flag++;
 						if(flag == MAXSEAT)
 						{
@@ -82,7 +82,7 @@ void delete_seat(struct airplane * ptr[])
 						seatnum = *input(&seatnum);
 						flag = 0; //Remember to set flag variable to 0
 						for(n = 0;n < MAXSEAT;n++)
-							if(pointer[n]->seat_reservation == false)
+							if(pointer2[n].seat_reservation == false)
 								flag++;
 						if(flag == MAXSEAT)
 						{
@@ -92,24 +92,24 @@ void delete_seat(struct airplane * ptr[])
 								continue;
 							return;
 						}
-						while(pointer[seatnum - 1]->seat_reservation == false) //Here we deal with the case when all the seats are empty
+						while(pointer2[seatnum - 1].seat_reservation == false) //Here we deal with the case when all the seats are empty
 						{
 							puts("This seat is empty,please enter a seat which have been reserved.");
-							show_reserved_seat(pointer);
+							show_reserved_seat(&pointer2);
 							puts("Please enter number:");
 							seatnum = *input(&seatnum);
 						}
 						while(getchar() != '\n') //Using this function after all input operations are finished
 							continue;
-						pointer[seatnum - 1]->fname[0] = '\0';
-						pointer[seatnum - 1]->lname[0] = '\0';
-						pointer[seatnum - 1]->seat_reservation = false;
+						pointer2[seatnum - 1].fname[0] = '\0';
+						pointer2[seatnum - 1].lname[0] = '\0';
+						pointer2[seatnum - 1].seat_reservation = false;
 						break;
 		}
 	}
 	if(choice2 == 'b')
 		for(n = 0;n < MAXSEAT;n++)
-			ptr[n] = pointer[n];
+			*ptr[n] = pointer2[n];
 	puts("Deletion completed.");
 }
 char get_choice2(void)
@@ -144,7 +144,7 @@ void assign_seat(struct airplane * ptr[])
 			puts("Please enter number:");
 			p = input(&seatnum);
 		}
-		while(getchar() != '\n') //Here we should use this function to skip the break line 
+		while(getchar() != '\n') //Here we should use this function to skip the break line
 			continue;
 		strcpy(ptr[*p - 1]->fname,name);
 		puts("Enter the customer last name:");
