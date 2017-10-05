@@ -59,6 +59,7 @@ void delete_seat(struct airplane * ptr[])
 	int seatnum;
 	int choice2;
 	int n;
+	int i;
 	int flag = 0; //A variable to judge if all the seats are empty
 	struct airplane pointer2[MAXSEAT];
 	//Traversing the whole array with flag variable if you want to exit this function when all the seats are empty
@@ -95,7 +96,11 @@ void delete_seat(struct airplane * ptr[])
 						while(pointer2[seatnum - 1].seat_reservation == false) //Here we deal with the case when all the seats are empty
 						{
 							puts("This seat is empty,please enter a seat which have been reserved.");
-							show_reserved_seat(&pointer2);
+							puts("Here is the number of seats which have been reserved:");
+							for(i = 0;i < MAXSEAT;i++)
+								if(pointer2[i].seat_reservation == true)
+									printf("%d ",pointer2[i].seat_number);
+							putchar('\n');
 							puts("Please enter number:");
 							seatnum = *input(&seatnum);
 						}
